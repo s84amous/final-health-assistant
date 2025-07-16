@@ -1,24 +1,17 @@
 # 🧠 Multimodal AI Health Assistant Agent
 
-A modular, voice-enabled AI health assistant system built using Python, FastAPI, and agent-based architecture.  
-This project was developed as part of the **Dialogue Systems course (SS2025)** at the **University of Bonn**.
+A modular, multi-agent LLM system that dynamically routes user queries to specialized AI agents and provides personalized health & lifestyle advice.
 
 ---
 
 ## 🚀 Features
 
-- 🌤️ **Weather Agent** – Real-time weather data using OpenWeatherMap  
-- 🏃 **Fitness Agent** – Activity suggestions based on weather  
-- 🥗 **Nutrition Agent** – Nutrition info via `HealthcareAgent` API (USDA-calibrated)  
-- 🧘 **Wellbeing Agent** – Mental wellness tips  
-- 😴 **Sleep Agent** – Sleep analysis tips  
+- 🌤️ **Weather Agent**
+- 🏃 **Fitness Agent** 
+- 🥗 **Nutrition Agent** 
+- 🧘 **Wellbeing Agent** 
 - ⏰ **Reminders Agent** – Health-related reminders  
-- 📅 **Calendar Agent** – Event checking  
-- 🤒 **Symptom Checker Agent** – Suggests potential health issues  
-- 🩺 **Health Data Agent** – Logs blood pressure/pulse via TinyDB  
-- 📊 **Health Analytics Agent** – Averages vitals for each user  
 - 🌐 **Web Search Fallback** – Default response if no intent matched  
-- 🔊 **TTS Output** – Speaks response using `gTTS`  
 - 🧠 **Selector Agent** – Routes query to proper agents
 
 ---
@@ -34,88 +27,40 @@ pip install -r requirements.txt
 ### requirements.txt
 
 ```
-fastapi
-uvicorn
-requests
-gtts
-tinydb
-HealthcareAgent
+python==3.11.7
+Requests==2.32.4
+smolagents==1.19.0
 ```
 
 ---
 
-## 🚀 Run the API
+## 🚀 Run the OLLAMA server
 
-```bash
-uvicorn main:app --reload
-```
 
 Then open:
 
 ```
-http://127.0.0.1:8000/docs
+run the code in the notebook for the time being till we modularize it.
 ```
 
-Use POST `/query/` endpoint to send queries.
 
 ---
 
-## 🧪 Example Request
-
-```json
-{
-  "query": "Tell me the weather and suggest a meal. Also analyze health report.",
-  "location": {
-    "lat": 35.7,
-    "lon": 51.4
-  },
-  "user": "u1"
-}
-```
-
-📤 Response might include:
-- 🌤️ Current weather
-- 🥗 USDA nutrition info via HealthcareAgent
-- 📊 Health summary for user `u1`
-- 🔊 Spoken response with gTTS
-
----
-
-## 📁 Project Structure
+## 🧪 Example input
 
 ```
-.
-├── main.py
-├── requirements.txt
-├── README.md
-├── health_data.json
-├── agents/
-│   ├── weather.py
-│   ├── fitness.py
-│   ├── nutrition.py
-│   ├── wellbeing.py
-│   ├── sleep.py
-│   ├── reminders.py
-│   ├── calendar.py
-│   ├── symptom.py
-│   ├── health_data.py
-│   ├── health_analytics.py
-│   ├── websearch.py
-│   └── selector.py
-└── utils/
-    ├── memory.py
-    └── tts.py
+"I am feeling energetic today, I want to do a good workout that includes going to the swimming pool due to it being very hot today,
+also add to my training biking and tell me a good place to do it. I need to eat to boost my protein intake and remind me to drink water in 1 hour"
 ```
 
----
+
 
 ## 👨‍💻 Contributors
-
-- Mohammad Erfan Hosseini  
-- Mohammad Mehdi Deylamipour  
 - Amr Moustafa  
 - Muhammad Zakria  
-
+- Mohammad Erfan Hosseini  
+- Mohammad Mehdi Deylamipour
+  
 University of Bonn – Dialogue Systems – SS 2025
 
 ---
