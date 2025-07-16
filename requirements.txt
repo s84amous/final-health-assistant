@@ -1,11 +1,2 @@
-fastapi
-uvicorn
-requests
-gtts
-tinydb
-HealthcareAgent
-beautifulsoup4
-cachetools
-lxml
-requests
-func_timeout
+Requests==2.32.4
+smolagents==1.19.0
