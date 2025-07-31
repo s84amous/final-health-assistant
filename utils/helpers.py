@@ -1,5 +1,5 @@
 import re
-from typing import Dict, List
+from typing import Dict
 from config.settings import CATEGORIES
 
 
@@ -26,7 +26,7 @@ def parse_router_output(raw_outputs: str) -> Dict[str, str]:
     """Parse router output and organize by categories."""
     output_dict = {cat: [] for cat in CATEGORIES}
     
-    # Split into blocks by category headers
+    # split into blocks by category headers
     blocks = re.split(r'\n(?=[A-Za-z]+:)', raw_outputs.strip())
 
     for block in blocks:
@@ -40,11 +40,11 @@ def parse_router_output(raw_outputs: str) -> Dict[str, str]:
         if category not in output_dict:
             continue
 
-        # Extract both bracketed sentences and those starting with "-"
+        # extraction
         bracket_sentences = re.findall(r'\[([^\[\]]+?)\]', content)
         dash_sentences = re.findall(r'-\s*([^\n]+)', content)
 
-        # Combine and clean
+        # cleanup
         all_sentences = bracket_sentences + dash_sentences
 
         for sentence in all_sentences:

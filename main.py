@@ -2,14 +2,20 @@ import warnings
 import os
 import sys
 import logging
+from typing import Dict, List
+from agents import (
+    WellbeingAgent, FitnessAgent, NutritionAgent, 
+    ReminderAgent, SearchAgent, RouterAgent
+)
+from tools.weather_tool import get_weather
+from utils.helpers import parse_router_output, invoke_agent # pyright: ignore[reportAssignmentType]
 
-# Nuclear option - suppress all warnings at all levels
+# suppress all warnings at all levels
 warnings.filterwarnings("ignore")
 warnings.simplefilter("ignore")
 os.environ['PYTHONWARNINGS'] = 'ignore'
 os.environ['PYTHONHASHSEED'] = '0'
 
-# Redirect stderr temporarily to suppress C-level warnings
 class SuppressStderr:
     def __enter__(self):
         self.original_stderr = sys.stderr
@@ -20,7 +26,7 @@ class SuppressStderr:
         sys.stderr.close()
         sys.stderr = self.original_stderr
 
-# Apply aggressive logging suppression
+# aggressive logging suppression
 logging.getLogger().setLevel(logging.CRITICAL)
 for logger_name in ['pydantic', 'httpx', 'litellm', 'urllib3', 'smolagents', 'asyncio']:
     logger = logging.getLogger(logger_name)
@@ -28,14 +34,6 @@ for logger_name in ['pydantic', 'httpx', 'litellm', 'urllib3', 'smolagents', 'as
     logger.disabled = True
     logger.propagate = False
 
-# main code imports
-from typing import Dict, List
-from agents import (
-    WellbeingAgent, FitnessAgent, NutritionAgent, 
-    ReminderAgent, SearchAgent, RouterAgent
-)
-from tools.weather_tool import get_weather
-from utils.helpers import parse_router_output, invoke_agent # pyright: ignore[reportAssignmentType]
 
 class AgentOrchestrator:
     """Orchestrates the routing and execution of specialized agents."""
@@ -55,7 +53,7 @@ class AgentOrchestrator:
         print("\n--- ROUTER INPUT ---")
         print(f"Input: {user_input}")
         
-        # Get weather context
+        # weather context
         ctx = {}
         weather_info = get_weather({"location": location}, ctx)
         
@@ -69,16 +67,16 @@ class AgentOrchestrator:
         
         print("\n[Weather Context]", weather_text)
         
-        # Route the request - suppress stderr during execution
+        # route the request - suppress stderr during execution
         full_prompt = self.router_agent.get_prompt() + f"\nUser Input: {user_input}"
         with SuppressStderr():
             router_output = self.router_agent.run(full_prompt)
         
-        # Parse router output
+        # parse router output
         categorized_inputs = parse_router_output(router_output)
         print("Categorized inputs:", categorized_inputs)
         
-        # Process each category
+        # process each category
         responses = []
         for category, content in categorized_inputs.items():
             if not content:
@@ -87,7 +85,6 @@ class AgentOrchestrator:
             if category in self.agents:
                 agent = self.agents[category]
                 prompt = agent.get_prompt()
-                # Suppress stderr during agent execution
                 with SuppressStderr():
                     response = invoke_agent(content, weather_text, prompt, category, agent)
                 if response:

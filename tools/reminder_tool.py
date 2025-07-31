@@ -29,15 +29,15 @@ class ReminderTool(Tool):
         timezone = "Europe/Paris"
         now = datetime.now()
         
-        # Extract date
+        # date
         date_match = re.search(r"\b(\d{4}-\d{2}-\d{2})\b", reminder_text)
         date_str = date_match.group(1) if date_match else (now + timedelta(days=1)).strftime("%Y-%m-%d")
 
-        # Extract time
+        # time
         time_match = re.search(r"\b(\d{2}:\d{2})\b", reminder_text)
         time_str = time_match.group(1) if time_match else "09:00"
         
-        # Extract notification advance
+        # notification
         notify_match = re.search(r"\b(in|before)\s+(\d+\s+(minutes?|hours?|days?|weeks?))", reminder_text, re.IGNORECASE)
         notify_in_advance = notify_match.group(2) if notify_match else "10 minutes"
         
