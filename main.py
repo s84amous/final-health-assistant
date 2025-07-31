@@ -28,7 +28,7 @@ for logger_name in ['pydantic', 'httpx', 'litellm', 'urllib3', 'smolagents', 'as
     logger.disabled = True
     logger.propagate = False
 
-# Now your existing imports
+# main code imports
 from typing import Dict, List
 from agents import (
     WellbeingAgent, FitnessAgent, NutritionAgent, 
@@ -37,7 +37,6 @@ from agents import (
 from tools.weather_tool import get_weather
 from utils.helpers import parse_router_output, invoke_agent # pyright: ignore[reportAssignmentType]
 
-# Rest of your existing code stays exactly the same...
 class AgentOrchestrator:
     """Orchestrates the routing and execution of specialized agents."""
     
