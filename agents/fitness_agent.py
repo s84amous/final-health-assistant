@@ -13,7 +13,7 @@ class FitnessAgent(BaseAgent):
         """Return the fitness agent's prompt."""
         return generate_prompt(
             "Fitness Coach",
-            "Provides tailored workout recommendations based on user requests and weather provided to have a complete workout or help the user with his fitness requests.",
+            "Provides tailored workout recommendations based on user requests and environmental factors to have a complete workout or help the user with his fitness requests.",
             "Use weather and activity history; Recommend suitable fitness activities and help the user with his requests",
             "A personalized activity suggestion"
         )

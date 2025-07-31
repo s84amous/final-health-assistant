@@ -20,7 +20,7 @@ CATEGORY_DESCRIPTIONS = {
     "Calendar": "query refers to appointments or events",
     "Nutrition": "query include meal names",
     "Reminder": "query include intent with reminding something",
-    "Search": "query include a question but it is not related to the other categories",
+    "Search": "query include a question but it is not related to the other categories",#  as long as it is not related to weather, fitness, wellbeing, sleep, calender, nutrition, nor reminder",
 }
 
 # Model Configuration
